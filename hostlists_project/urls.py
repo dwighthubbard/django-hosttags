@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^/$',redirect_to,{'url':'/admin/hosttags/host/'}),
     url(r'^$', redirect_to,{'url':'/admin/hosttags/host/'}),
+    (r'^api/', include('api.urls')),
 )
