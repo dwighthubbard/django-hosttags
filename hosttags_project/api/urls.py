@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 from piston.resource import Resource
-from hostlists_project.api.handlers import HostHandler
+from hosttags_project.api.handlers import HostHandler
 
 host_handler = Resource(HostHandler)
 

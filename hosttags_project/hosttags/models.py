@@ -6,7 +6,6 @@ class Host(models.Model):
   def __unicode__(self):
     return self.name
   name= models.CharField(max_length=256,help_text='This can be a single host or any host grouping supported by hostlists, example www[01-09].foo.com')
-  group=models.BooleanField(default=False, help_text='This record refers to a group of hosts')
   tags= TaggableManager(blank=True)
 
 from django.db import models

@@ -1,5 +1,5 @@
 from piston.handler import BaseHandler
-from hostlists_project.hosttags.models import Host
+from hosttags.models import Host
 
 class HostHandler(BaseHandler):
    allowed_methods = ('GET',)
