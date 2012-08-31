@@ -21,6 +21,11 @@ class Host(models.Model):
   name= models.CharField(max_length=256,unique=True,help_text='This can be a single host or any host grouping supported by hostlists, example www[01-09].foo.com')
   # Tags, these are any tags assigned to the host.  These allow creating groups of hosts
   tags= TaggableManager(blank=True)
+
+  # Added the following section to illustrate the kinds of fields that
+  # might be useful in a host databae.  None of these fields are
+  # required because the contain information that can best be updated
+  # by automation.
   if INCLUDE_HOST_OS_FIELDS:
       # Kernel name, this should match the output of uname -s
       os_kernel_name=models.CharField(max_length=256,blank=True)
