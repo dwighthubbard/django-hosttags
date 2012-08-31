@@ -13,13 +13,6 @@ class HostHandler(BaseHandler):
         print request.REQUEST
         if 'tags' in request.REQUEST.keys():
             tags=request.REQUEST['tags']
-        if 'group' in request.REQUEST.keys():
-            if request.REQUEST['group'].lower() == 'false':
-                print 'Group is False'
-                group=False
-            else:
-                print 'Group is True'
-                group=True
         base = Host.objects        
         if tags:
             print type(tags)
@@ -28,7 +21,6 @@ class HostHandler(BaseHandler):
                 tags=tags.split(',')            
             print tags
             base=base.filter(tags__name__in=tags)
-            base=base.filter(group=group)
             return base
         else:
-            return base.all().filter(group=group) # Or base.filter(...)
+            return base.all() # Or base.filter(...)

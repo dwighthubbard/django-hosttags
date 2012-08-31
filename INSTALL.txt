@@ -1,0 +1,6 @@
+This document needs to be fleshed out
+
+Install django-piston and django-taggit from pypi
+
+Install sshmap from github git@github.com:dwighthubbard/sshmap.git
+

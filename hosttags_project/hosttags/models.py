@@ -1,19 +1,39 @@
 from django.db import models
 from taggit.managers import TaggableManager
 import hostlists
-
-class Host(models.Model):
-  def __unicode__(self):
-    return self.name
-  name= models.CharField(max_length=256,help_text='This can be a single host or any host grouping supported by hostlists, example www[01-09].foo.com')
-  tags= TaggableManager(blank=True)
-
-from django.db import models
 from django.contrib.admin.filterspecs import FilterSpec, RelatedFilterSpec
 from django.contrib.admin.util import get_model_from_relation
 from django.db.models import Count
-from taggit.managers import TaggableManager
 
+# PRESETS, these allow specifying fields for the host objects
+INCLUDE_HOST_OS_FIELDS=True
+
+class Host(models.Model):
+  """ 
+  Basic host class
+  This class can be extended to container a wide variety of host information
+  """
+  def __unicode__(self):
+    return self.name
+  # The host name, this should match the nodename from the uname -n command, 
+  # the admin module runs the entered info through the hostlists
+  # module and generates one or more host objects from the results.
+  name= models.CharField(max_length=256,unique=True,help_text='This can be a single host or any host grouping supported by hostlists, example www[01-09].foo.com')
+  # Tags, these are any tags assigned to the host.  These allow creating groups of hosts
+  tags= TaggableManager(blank=True)
+  if INCLUDE_HOST_OS_FIELDS:
+      # Kernel name, this should match the output of uname -s
+      os_kernel_name=models.CharField(max_length=256,blank=True)
+      # this should match the output of uname -r
+      os_kernel_release=models.CharField(max_length=128,blank=True)
+      # this should match the output of uname -v
+      os_kernel_version=models.CharField(max_length=128,blank=True)
+      # this should match the output of uname -m
+      os_machine=models.CharField(max_length=64,blank=True)
+      # this should match the output of uname -p
+      os_processor=models.CharField(max_length=64,blank=True)
+      os_hardware_platform=models.CharField(max_length=64,blank=True)
+      os_operating_system=models.CharField(max_length=64,blank=True)
 
 class TaggitFilterSpec(RelatedFilterSpec):
     """
